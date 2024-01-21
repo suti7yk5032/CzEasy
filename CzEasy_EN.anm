@@ -1,0 +1,80 @@
+--track0:Grid,0,5000,0,1
+--track1:Direction,1,4,1,1
+--track2:Corner,0,1,1,1
+--track3:Number,1,500,1,1
+--check0:Inactive,0
+--dialog:Move the Z axis/chk, check_z=0; Z axis Grid, z_grid="0"; Filename before, active_name="b1"; Filename after, inactive_name="b2";
+
+require("rikky_module")
+str, objt = rikky_module.getinfo("object")
+
+item_w, item_h = obj.getpixel()
+
+grid = obj.track0
+
+group_num, group_total, group_switch = rikky_module.getinfo("groups")
+
+inactive_path = string.gsub(objt["file"], active_name, inactive_name)
+
+if (group_switch == 1) then
+    window_num = math.ceil((group_num + 1) / 2)
+    if (obj.check0 == true) then
+        if ((group_num + 1) % 2 == 0) then
+            obj.load(inactive_path)
+        end
+    end
+else
+    window_num = obj.track3 - 1
+    if (obj.check0 == true) then
+        obj.load(inactive_path)
+    end
+end
+
+if (obj.track2 == 0) then
+    if (obj.track1 == 1) then
+        ox = grid * window_num
+        oy = grid * window_num
+
+    elseif (obj.track1 == 2) then
+        ox = grid * window_num * -1
+        oy = grid * window_num
+
+    elseif (obj.track1 == 3) then
+        ox = grid * window_num
+        oy = grid * window_num * -1
+
+    elseif (obj.track1 == 4) then
+        ox = grid * window_num * -1
+        oy = grid * window_num * -1
+    end
+
+elseif (obj.track2 == 1) then
+    if (obj.track1 == 1) then
+        ox = (obj.screen_w / 2 - item_w / 2) * -1 + grid * window_num
+        oy = (obj.screen_h / 2 - item_h / 2) * -1 + grid * window_num
+
+    elseif (obj.track1 == 2) then
+        ox = (obj.screen_w / 2 - item_w / 2) + grid * window_num * -1
+        oy = (obj.screen_h / 2 - item_h / 2) * -1 + grid * window_num
+
+    elseif (obj.track1 == 3) then
+        ox = (obj.screen_w / 2 - item_w / 2) * -1 + grid * window_num
+        oy = (obj.screen_h / 2 - item_h / 2) + grid * window_num * -1
+
+    elseif (obj.track1 == 4) then
+        ox = (obj.screen_w / 2 - item_w / 2) + grid * window_num * -1
+        oy = (obj.screen_h / 2 - item_h / 2) + grid * window_num * -1
+    end
+end
+
+if (check_z == 1) then
+    if (tonumber(z_grid) > 0) then
+        oz = z_grid * window_num * -1
+    else
+        oz = grid * window_num * -1
+    end
+else
+    oz = 0
+end
+
+obj.effect("ç¿ïW", "X", ox, "Y", oy, "Z", oz)
