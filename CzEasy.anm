@@ -77,4 +77,6 @@ else
     oz = 0
 end
 
-obj.effect("ç¿ïW", "X", ox, "Y", oy, "Z", oz)
+obj.ox = ox
+obj.oy = oy
+obj.oz = oz
