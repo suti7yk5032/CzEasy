@@ -101,6 +101,6 @@ else
 end
 
 
-obj.ox = math.ceil(obj.ox + ox)
-obj.oy = math.ceil(obj.oy + oy)
-obj.oz = math.ceil(obj.oz + oz)
+obj.ox = obj.ox + ox
+obj.oy = obj.oy + oy
+obj.oz = obj.oz + oz
