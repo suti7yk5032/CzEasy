@@ -46,28 +46,52 @@ elseif (obj.track1 == 4) then
     oy = (obj.screen_h / 2 - item_h / 2) + grid * window_num * -1
 
 elseif (obj.track1 == 5) then
-    ox = 0
-    oy = 0
+    if (item_w % 2 == 1) then
+        ox = 0.5
+    else
+        ox = 0
+    end
+    if (item_h % 2 == 1) then
+        oy = 0.5
+    else
+        oy = 0
+    end
 
 elseif (obj.track1 == 6) then
-    ox = 0
+    if (item_w % 2 == 1) then
+        ox = 0.5
+    else
+        ox = 0
+    end
     oy = (obj.screen_h / 2 - item_h / 2) * -1 + grid * window_num
 
 elseif (obj.track1 == 7) then
-    ox = 0
+    if (item_w % 2 == 1) then
+        ox = 0.5
+    else
+        ox = 0
+    end
     oy = (obj.screen_h / 2 - item_h / 2) + grid * window_num * -1
 
 elseif (obj.track1 == 8) then
     ox = (obj.screen_w / 2 - item_w / 2) * -1 + grid * window_num
-    oy = 0
+    if (item_h % 2 == 1) then
+        oy = 0.5
+    else
+        oy = 0
+    end
 
 elseif (obj.track1 == 9) then
     ox = (obj.screen_w / 2 - item_w / 2) + grid * window_num * -1
-    oy = 0
+    if (item_h % 2 == 1) then
+        oy = 0.5
+    else
+        oy = 0
+    end
 
 elseif (obj.track1 == 10) then
-    ox = obj.rand(rand_x * -1, rand_x, rand_seed, 0)
-    oy = obj.rand(rand_y * -1, rand_y, rand_seed + 1, 0)
+    ox = math.ceil(obj.rand(rand_x * -1, rand_x, rand_seed, 0))
+    oy = math.ceil(obj.rand(rand_y * -1, rand_y, rand_seed + 1, 0))
     if (math.ceil(ox) % 2 == 0) then
         ox = ox + grid * -1
     else
@@ -77,6 +101,13 @@ elseif (obj.track1 == 10) then
         oy = oy + grid * -1
     else
         oy = oy + grid
+    end
+
+    if (item_w % 2 == 1) then
+        ox = ox + 0.5
+    end
+    if (item_h % 2 == 1) then
+        oy = oy + 0.5 
     end
 
 end
@@ -93,7 +124,7 @@ if (check_z == 1) then
             oz = oz + grid
         end
     else
-        oz = grid * window_num * -1
+        oz = math.ceil(grid * window_num * -1)
     end
 
 else
