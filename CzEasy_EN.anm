@@ -12,7 +12,13 @@ item_w, item_h = obj.getpixel()
 grid = obj.track0
 group_num, group_total, group_switch = rikky_module.getinfo("groups")
 group_num_fix = group_num + 1
-inactive_path = string.gsub(objt["file"], active_name, inactive_name)
+
+if (objt["file"] == nil) then
+    inactive_path = "a"
+else
+    inactive_path = string.gsub(objt["file"], active_name, inactive_name)
+end
+
 taskbar_h = obj.track2
 
 
