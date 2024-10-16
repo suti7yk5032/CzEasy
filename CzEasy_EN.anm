@@ -3,7 +3,7 @@
 --track2:Spacer,0,1000,0,1
 --track3:Number,1,500,1,1
 --check0:Inactive,0
---dialog:Move the Z axis/chk, check_z=0; Z axis Grid, z_grid="0"; Filename before, active_name="b1"; Filename after, inactive_name="b2"; Seed of random number, rand_seed="200"; Change in X, rand_x="300"; Change in Y, rand_y="300"; Change in Z, rand_z="300"; Fix the overhang/chk, check_hamidashi=0;
+--dialog:Move the Z axis/chk, check_z=0; Z axis Grid, z_grid="0"; Filename before, active_name="b1"; Filename after, inactive_name="b2"; Seed of random number, rand_seed="200"; Change in X, rand_x="300"; Change in Y, rand_y="300"; Change in Z, rand_z="300"; Fix the overhang/chk, check_hamidashi=0; Ignore Filter Effects/chk, check_filter_pass=0;
 
 
 require("rikky_module")
@@ -21,12 +21,31 @@ end
 
 taskbar_h = obj.track2
 
+--[[
+print("オブジェクト :", object_type)
+print("ファイル名 :", objt["file"])
+print("group_num :", group_num)
+print("group_num_fix :", group_num_fix)
+]]
 
 if (group_switch >= 1) then
-    window_num = math.ceil(group_num_fix / 2 - 1)
+    if (check_filter_pass == 1) then
+        window_num = math.ceil(group_num_fix / 3 - 1)
+    else
+        window_num = math.ceil(group_num_fix / 2 - 1)
+    end
+
     if (obj.check0 == true) then
-        if (group_num_fix % 2 == 0) then
-            obj.load(inactive_path)
+        if (check_filter_pass == 1) then
+            if ((group_num_fix - 2) % 3 == 0) then
+                obj.load(inactive_path)
+            end
+
+        else
+            if (group_num_fix % 2 == 0) then
+                obj.load(inactive_path)
+            end
+
         end
     end
 else
