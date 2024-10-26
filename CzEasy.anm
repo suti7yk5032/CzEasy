@@ -3,7 +3,7 @@
 --track2:X上限,0,8000,0,1
 --track3:Y上限,0,8000,0,1
 --check0:非アクティブ化,0
---dialog:Z軸も動かす/chk, check_z=0; Z軸グリッド, z_grid="0"; 置き換え前, active_name="b1"; 置き換え後, inactive_name="b2"; 乱数シード値, rand_seed="100"; 乱数のX軸変化量, rand_x="300"; 乱数のY軸変化量, rand_y="300"; 乱数のZ軸変化量, rand_z="300"; はみ出し抑止/chk, check_hamidashi=0; フィルタ効果を無視/chk, check_filter_pass=0;
+--dialog:Z軸も動かす/chk, check_z=0; Z軸グリッド, z_grid="0"; 置き換え前, active_name="b1"; 置き換え後, inactive_name="b2"; 乱数シード値, rand_seed="100"; 乱数のX軸変化量, rand_x="300"; 乱数のY軸変化量, rand_y="300"; 乱数のZ軸変化量, rand_z="300"; はみ出し抑止/chk, check_hamidashi=0; フィルタ効果を無視/chk, check_filter_pass=0; シングルモード/chk, check_single_mode=0;
 
 
 require("rikky_module")
@@ -32,6 +32,10 @@ print("group_num_fix :", group_num_fix)
 if (group_switch >= 1) then
     if (check_filter_pass == 1) then
         window_num = math.ceil(group_num_fix / 3 - 1)
+
+    elseif (check_single_mode == 1) then
+        window_num = group_num
+        
     else
         window_num = math.ceil(group_num_fix / 2 - 1)
     end
@@ -41,6 +45,9 @@ if (group_switch >= 1) then
             if ((group_num_fix - 2) % 3 == 0) then
                 obj.load(inactive_path)
             end
+        
+        elseif (check_single_mode == 1) then
+            obj.load(inactive_path)
 
         else
             if (group_num_fix % 2 == 0) then
@@ -50,7 +57,7 @@ if (group_switch >= 1) then
         end
     end
 else
-    window_num = obj.track3 - 1
+    window_num = 0
     if (obj.check0 == true) then
         obj.load(inactive_path)
     end
