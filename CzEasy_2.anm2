@@ -1,0 +1,117 @@
+--track0:グリッド,0,5000,0,1
+--track1:向き,1,10,1,1
+--track2:ウィンドウ番号,1,1000,1,1
+--dialog:Z軸も動かす/chk, check_z=0; Z軸グリッド, z_grid="0"; 乱数シード値, rand_seed="100"; 乱数のX軸変化量, rand_x="300"; 乱数のY軸変化量, rand_y="300"; 乱数のZ軸変化量, rand_z="300";
+
+item_w, item_h = obj.getpixel()
+grid = obj.track0
+window_num = obj.track2 - 1
+
+if (obj.track1 == 1) then
+    ox = (obj.screen_w / 2 - item_w / 2) * -1 + grid * window_num
+    oy = (obj.screen_h / 2 - item_h / 2) * -1 + grid * window_num
+
+elseif (obj.track1 == 2) then
+    ox = (obj.screen_w / 2 - item_w / 2) + grid * window_num * -1
+    oy = (obj.screen_h / 2 - item_h / 2) * -1 + grid * window_num
+
+elseif (obj.track1 == 3) then
+    ox = (obj.screen_w / 2 - item_w / 2) * -1 + grid * window_num
+    oy = (obj.screen_h / 2 - item_h / 2) + grid * window_num * -1
+
+elseif (obj.track1 == 4) then
+    ox = (obj.screen_w / 2 - item_w / 2) + grid * window_num * -1
+    oy = (obj.screen_h / 2 - item_h / 2) + grid * window_num * -1
+
+elseif (obj.track1 == 5) then
+    if (item_w % 2 == 1) then
+        ox = 0.5
+    else
+        ox = 0
+    end
+    if (item_h % 2 == 1) then
+        oy = 0.5
+    else
+        oy = 0
+    end
+
+elseif (obj.track1 == 6) then
+    if (item_w % 2 == 1) then
+        ox = 0.5
+    else
+        ox = 0
+    end
+
+    oy = (obj.screen_h / 2 - item_h / 2) * -1 + grid * window_num
+
+elseif (obj.track1 == 7) then
+    if (item_w % 2 == 1) then
+        ox = 0.5
+    else
+        ox = 0
+    end
+
+    oy = (obj.screen_h / 2 - item_h / 2) + grid * window_num * -1
+
+elseif (obj.track1 == 8) then
+    if (item_h % 2 == 1) then
+        oy = 0.5
+    else
+        oy = 0
+    end
+
+    ox = (obj.screen_w / 2 - item_w / 2) * -1 + grid * window_num
+
+elseif (obj.track1 == 9) then
+    if (item_h % 2 == 1) then
+        oy = 0.5
+    else
+        oy = 0
+    end
+
+    ox = (obj.screen_w / 2 - item_w / 2) + grid * window_num * -1
+
+elseif (obj.track1 == 10) then
+    ox = math.ceil(obj.rand(rand_x * -1, rand_x, rand_seed, 0))
+    oy = math.ceil(obj.rand(rand_y * -1, rand_y, rand_seed + 1, 0))
+    if (math.ceil(ox) % 2 == 0) then
+        ox = ox + grid * -1
+    else
+        ox = ox + grid
+    end
+    if (math.ceil(oy) % 2 == 1) then
+        oy = oy + grid * -1
+    else
+        oy = oy + grid
+    end
+
+    if (item_w % 2 == 1) then
+        ox = ox + 0.5
+    end
+    if (item_h % 2 == 1) then
+        oy = oy + 0.5 
+    end
+end
+
+
+if (check_z == 1) then
+    if (tonumber(z_grid) > 0) then
+        oz = z_grid * window_num * -1
+    elseif (obj.track1 == 10) then
+        oz = obj.rand(rand_z * -1, rand_z, rand_seed + 2, 0)
+        if (math.ceil(oz) % 2 == 0) then
+            oz = oz + grid * -1
+        else
+            oz = oz + grid
+        end
+    else
+        oz = math.ceil(grid * window_num * -1)
+    end
+
+else
+    oz = 0
+end
+
+obj.ox = obj.ox + ox
+obj.oy = obj.oy + oy
+obj.oz = obj.oz + oz
