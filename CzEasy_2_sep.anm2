@@ -2,7 +2,7 @@
 --track1:Xグリッド,0,5000,0,1
 --track2:並び,1,10,1,1
 --track3:ウィンドウ番号,1,1000,1,1
---dialog:Z軸も動かす/chk, check_z=0; Z軸グリッド, z_grid="0"; 乱数シード値, rand_seed="100"; 乱数のX軸変化量, rand_x="300"; 乱数のY軸変化量, rand_y="300"; 乱数のZ軸変化量, rand_z="300";
+--dialog:Z軸も動かす/chk, z_check=0; Z軸グリッド, z_grid="0"; 乱数シード値, rand_seed="100";乱数シード値, rand_seed="100"; 乱数のX軸変化量, rand_x="300"; 乱数のY軸変化量, rand_y="300"; 乱数のZ軸変化量, rand_z="300"; X上限, screen_x_deadzone="0"; Y上限, screen_y_deadzone="0";
 
 item_w, item_h = obj.getpixel()
 screen_w = obj.screen_w
@@ -91,18 +91,43 @@ elseif (mode == 10) then
 end
 
 
-if (check_z == 1) then
+if (tonumber(screen_x_deadzone) < 0) then
+    hamidashi_x_limit = (screen_w / 2) + (screen_x_deadzone) + (item_w / 2 * -1) + (obj.x * -1)
+    if (ox > hamidashi_x_limit) then
+        ox = hamidashi_x_limit
+    end
+elseif (tonumber(screen_x_deadzone) > 0) then
+    hamidashi_x_limit = (screen_w / 2 * -1) + (screen_x_deadzone) + (item_w / 2) + (obj.x * -1)
+    if (ox < hamidashi_x_limit) then
+        ox = hamidashi_x_limit
+    end
+end
+
+if (tonumber(screen_y_deadzone) < 0) then
+    hamidashi_y_limit = (screen_h / 2) + (screen_y_deadzone) + (item_h / 2 * -1) + (obj.y * -1)
+    if (oy > hamidashi_y_limit) then
+        oy = hamidashi_y_limit
+    end
+elseif (tonumber(screen_y_deadzone) > 0) then
+    hamidashi_y_limit = (screen_h / 2 * -1) + (screen_y_deadzone) + (item_h / 2) + (obj.y * -1)
+    if (oy < hamidashi_y_limit) then
+        oy = hamidashi_y_limit
+    end
+end
+
+
+if (z_check == 1) then
     if (tonumber(z_grid) > 0 or tonumber(z_grid) < 0) then
         oz = math.ceil(z_grid * window_num * -1)
     elseif (mode == 10) then
         oz = math.ceil(obj.rand(rand_z * -1, rand_z, rand_seed + 2, 0))
         if (oz % 2 == 0) then
-            oz = oz + z_grid * -1
+            oz = oz + grid * -1
         else
-            oz = oz + z_grid
+            oz = oz + grid
         end
     else
-        oz = math.ceil(z_grid * window_num * -1)
+        oz = math.ceil(grid * window_num * -1)
     end
     
     obj.oz = obj.oz + oz
