@@ -1,5 +1,5 @@
 --track0:Xグリッド,0,5000,0,1
---track1:Xグリッド,0,5000,0,1
+--track1:Yグリッド,0,5000,0,1
 --track2:並び,1,10,1,1
 --track3:ウィンドウ番号,1,1000,1,1
 --dialog:Z軸も動かす/chk, z_check=0; Z軸グリッド, z_grid="0"; 乱数シード値, rand_seed="100";乱数シード値, rand_seed="100"; 乱数のX軸変化量, rand_x="300"; 乱数のY軸変化量, rand_y="300"; 乱数のZ軸変化量, rand_z="300"; X上限, screen_x_deadzone="0"; Y上限, screen_y_deadzone="0";
