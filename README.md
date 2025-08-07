@@ -1,6 +1,10 @@
 # CzEasy
 ウィンドウの配置が簡単にできるAviUtl用スクリプト
 
+## ⚠ 更新終了
+CzEasyは[CrEasy](https://github.com/suti7yk5032/CrEasy)として生まれ変わりました。
+CzEasyの今後の更新はありません。ご注意ください。
+
 ## 使い方
 ### 前提
 このスクリプトは rikky_module を必要とします。また、AviUtlの基礎知識があることも前提とします。
